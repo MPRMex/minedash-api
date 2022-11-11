@@ -57,6 +57,11 @@ func (mds *MineDashServer) GetEntity(sysid int) (*Entity, error) {
 	return result, nil
 }
 
+func (mds *MineDashServer) DeleteEntity(sysid int) error {
+	_, err := mds.makeRequest("DELETE", fmt.Sprintf("entity/%d", sysid), nil)
+	return err
+}
+
 func (mds *MineDashServer) NewEntity(entity *Entity) (*Entity, error) {
 	data, err := json.Marshal(entity)
 	if err != nil {
