@@ -9,6 +9,23 @@ type EntityAllResponse struct {
 	Entities []Entity `json:"entity"`
 }
 
+type NewEntityRequest struct {
+	EntityType      string `json:"entityType"`
+	CorpId          Str    `json:"corpId"`
+	ExternalId      string `json:"externalId"`
+	FirstName       string `json:"firstName"`
+	LastName        string `json:"lastName"`
+	AlternativeName string `json:"alternativeName"`
+	JobTitle        string `json:"jobTitle"`
+	PersonalPhone   string `json:"personalPhone"`
+	OfficePhone     string `json:"officePhone"`
+}
+
+type DeletedEntityResponse struct {
+	ErrorCode string `json:"errorCode"`
+	ErrorDesc string `json:"errorDescription"`
+}
+
 type Entity struct {
 	CorpId      Str         `json:"corpId"`
 	EntityLabel string      `json:"entityLabel"`

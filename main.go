@@ -58,8 +58,16 @@ func (mds *MineDashServer) GetEntity(sysid int) (*Entity, error) {
 }
 
 func (mds *MineDashServer) DeleteEntity(sysid int) error {
-	_, err := mds.makeRequest("DELETE", fmt.Sprintf("entity/%d", sysid), nil)
-	return err
+	res, _ := mds.makeRequest("DELETE", fmt.Sprintf("entity/%d", sysid), nil)
+	if res.StatusCode == http.StatusOK {
+		return nil
+	}
+	result := &DeletedEntityResponse{}
+	err := parseJsonBody(res, &result)
+	if err != nil {
+		return err
+	}
+	return errors.New(result.ErrorDesc)
 }
 
 func (mds *MineDashServer) NewEntity(entity *Entity) (*Entity, error) {
